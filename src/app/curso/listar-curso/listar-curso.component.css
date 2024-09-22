@@ -1,0 +1,26 @@
+.title{
+    margin-top: 4%;
+}
+
+.col-btn-new{
+    margin-top: 2%;    
+    margin-bottom: 4%;
+}
+
+.btn-new{
+    color: white;
+}
+
+.btn-edit, 
+.btn-remove
+{
+    margin: 3% 3% 0 3%;
+}
+
+th {
+    text-align: center;    
+}
+
+.table-text-column{
+    vertical-align: middle;
+}

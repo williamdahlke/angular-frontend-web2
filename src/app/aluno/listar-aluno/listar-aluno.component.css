@@ -1,0 +1,41 @@
+
+.btn{
+    margin-right: 20px;
+}
+.bi-pencil-square{
+    color: white;
+}
+.header{
+    margin-top: 4%;
+    margin-bottom: 2%;
+}
+.row-btn-new{
+    margin-top: 4%;
+    margin-bottom: 4%;
+    margin-left: 40%;
+}
+.col-btn-new{
+    margin-left: 25%;
+}
+.btn-new{
+    color: white;
+}
+
+th{ 
+    text-align: center;
+}
+
+td{
+    vertical-align: middle;
+}
+
+.col-cpf,
+.col-dt-nascimento{
+    text-align: center;
+}
+
+.btn-edit, 
+.btn-remove
+{
+    margin: 3% 3% 0 3%;
+}

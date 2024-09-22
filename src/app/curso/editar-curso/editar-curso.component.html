@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Editar Curso</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div class="container">             
+            <div class="row header">
+                <h1>Editar Curso</h1>
+            </div>
+            <hr>
+
+            <form #formCurso="ngForm">                                
+                <div class="row row-field">
+                    <div class="form-group">
+                        <label for="nome">Nome do curso *</label>
+                        <input type="text" class="form-control" id="nome" name="nome"
+                        [(ngModel)]="curso.nome" #nome="ngModel" required>
+                        <div class="alert alert-danger" *ngIf="nome.errors && (nome.dirty || nome.touched)">
+                            <div [hidden]="!nome.errors['required']">Digite o nome do curso</div>
+                        </div>
+                    </div>                    
+                </div>
+
+                <div class="row row-field">
+                    <div class="form-group">
+                        <label for="link">Link do curso *</label>
+                        <input type="text" class="form-control" id="link" name="link"
+                        [(ngModel)]="curso.link" #link="ngModel" required>
+                        <div class="alert alert-danger" *ngIf="link.errors && (link.dirty || link.touched)">
+                            <div [hidden]="!link.errors['required']">Digite o link do curso</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row row-buttons">
+                    <div class="col">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary btn-save-curso" (click)="atualizar()" [disabled]="!formCurso.form.valid">
+                                <i class="fa fa-save" aria-hidden="true"></i> Salvar
+                            </button>
+                            <a class="btn btn-secondary" [routerLink]="['/cursos']">
+                                <i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-6"></div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

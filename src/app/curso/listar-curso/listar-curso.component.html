@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Listar Curso</title>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row title">
+            <h1>Listar Cursos</h1>
+        </div>
+        <hr>
+
+        <div class="row">
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col-2 col-btn-new">
+                <a [routerLink]="['/cursos/novo']" href="#" alt="novo" class="btn btn-x btn bg-success btn-new">
+                    <i class="fa fa-plus" aria-hidden="true"></i> Novo
+                </a>
+            </div>
+        </div>
+
+        <table class="table table-striped table-bordered table-hover">            
+            <thead>                
+                <tr>
+                    <th class="col">Nome do Curso</th>
+                    <th class="col">Link</th>
+                    <th class="col-3">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let curso of cursos">
+                    <td class="table-text-column">{{curso.nome}}</td>
+                    <td class="table-text-column">{{curso.link}}</td>
+                    <td class="text-center align-middle">
+                        <a href="#" alt="Editar" class="btn btn-xs btn-info btn-edit"
+                            [routerLink]="['/cursos/editar', curso.id]">
+                            <i class="fa fa-edit" aria-hidden="true"></i> Editar
+                        </a>
+                        <a href="#" title="Remover" alt="Remover" class="btn btn-xs btn-danger btn-remove"
+                            (click)="remover($event, curso)">
+                            <i class="fa fa-times" aria-hidden="true"></i> Remover
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
