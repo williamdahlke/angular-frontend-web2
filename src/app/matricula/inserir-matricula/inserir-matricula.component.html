@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="row header">
+        <h2>Nova Matricula</h2>
+    </div>
+    <hr>
+    <div class="well">
+        <form #formMatricula="ngForm">
+            <div class="row">
+                <div class="col-9">
+                    <div class="row row-form-input1">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="nome">Aluno *</label>
+                                <select [(ngModel)]="idAluno" class="form-control" id="aluno" name="aluno" 
+                                required>
+                                    <option *ngFor="let aluno of listarAlunos()" [ngValue]="aluno.id">{{aluno.nome}}</option>
+                                </select>
+                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                    Please choose a student.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="nome">Curso *</label>
+                                <select [(ngModel)]="idCurso" class="form-control" id="curso" name="curso" placeholder="----"
+                                #curso="ngModel" required>
+                                    <option *ngFor="let curso of listarCursos()" [ngValue]="curso.id">{{curso.nome}}</option>
+                                </select>
+                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                    Please choose a course.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="row row-form-btn">
+                <div class="col">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary btn-salvar" (click)="inserir()" [disabled]="!formMatricula.form.valid">
+                            <i class="fa fa-save" aria-hidden="true"></i> Salvar
+                        </button>
+                        <a class="btn btn-secondary btn-voltar" [routerLink]="['/matriculas']">
+                            <i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar
+                        </a>
+                    </div>
+                </div>
+                <div class="col-9"></div>                        
+            </div>
+        </form>
+    </div>
+</div>

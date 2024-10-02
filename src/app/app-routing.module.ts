@@ -1,7 +1,9 @@
+import { EditarMatriculaComponent } from './matricula/editar-matricula/editar-matricula.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import * as curso from './curso';
 import * as aluno from './aluno';
+import * as matriculas from './matricula';
 
 const routes: Routes = [
   { path: '',
@@ -22,7 +24,15 @@ const routes: Routes = [
   { path: 'alunos/novo',
     component: aluno.InserirAlunoComponent},
   { path: 'alunos/editar/:id',
-    component: aluno.EditarAlunoComponent}
+    component: aluno.EditarAlunoComponent},
+  { path: 'matriculas',
+    redirectTo: 'matriculas/listar'},
+  { path: 'matriculas/listar',
+    component: matriculas.ListarMatriculaComponent},
+  { path: 'matriculas/novo',
+    component: matriculas.InserirMatriculaComponent},
+  { path: 'matriculas/editar/:id',
+    component: matriculas.EditarMatriculaComponent},
 ];
 
 @NgModule({

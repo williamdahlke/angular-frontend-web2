@@ -1,0 +1,74 @@
+<div class="container">
+    <div class="row title">
+        <h1>Matriculas</h1>
+    </div>
+    <hr>
+
+    <div class="row">
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col-2 col-btn-new">
+            <a [routerLink]="['/matriculas/novo']" href="#" alt="novo" class="btn btn-x btn bg-success btn-new">
+                <i class="fa fa-plus" aria-hidden="true"></i> Novo
+            </a>
+        </div>
+    </div>
+
+      
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item" *ngFor="let curso of cursos; let i = index">
+          <h2 class="accordion-header" [attr.id]="'heading' + curso.id">
+            <button
+              class="accordion-button"
+              type="button"
+              [class.collapsed]="i !== 0"
+              [attr.data-bs-target]="'#collapse' + curso.id"
+              [attr.aria-expanded]="i === 0 ? 'true' : 'false'"
+              [attr.aria-controls]="'collapse' + curso.id"
+              [attr.data-bs-toggle]="'collapse'"
+            >
+            <strong>{{ curso.nome }}</strong>
+            </button>
+          </h2>
+          <div
+            [attr.id]="'collapse' + curso.id"
+            class="accordion-collapse collapse"
+            [class.show]="i === 0"
+            [attr.aria-labelledby]="'heading' + curso.id"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+                <table class="table table-striped table-hover">            
+                    <!-- <thead>                
+                        <tr>
+                            <th class="col">Nome Aluno</th>
+                            <th class="col">E-mail</th>
+                            <th class="col">Nota</th>
+                            <th class="col">Data matricula</th>
+                            <th class="col-3">Ações</th>
+                        </tr>
+                    </thead> -->
+                    <tbody>
+                        <tr *ngFor="let matricula of getCursosFiltrados(curso.id!)" >
+                            <td class="table-text-column">{{matricula.Aluno?.nome}}</td>
+                            <td class="table-text-column">{{matricula.Aluno?.email}}</td>
+                            <td class="table-text-column">{{matricula.nota}}</td>
+                            <td class="table-text-column">{{matricula.dataMatricula! | mask: 'd0/M0/0000'}}</td>
+                            <td class="text-center align-middle">
+                                <a href="#" alt="Editar" class="btn btn-xs btn-info btn-edit"
+                                    [routerLink]="['/matriculas/editar', matricula.id]">
+                                    <i class="fa fa-edit" aria-hidden="true"></i> Editar
+                                </a>
+                                <a href="#" title="Remover" alt="Remover" class="btn btn-xs btn-danger btn-remove"
+                                    (click)="remover($event, matricula)">
+                                    <i class="fa fa-times" aria-hidden="true"></i> Remover
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>

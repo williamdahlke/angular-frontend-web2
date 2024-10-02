@@ -1,55 +1,43 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Listar Aluno</title>
-        <meta charset="utf-8">
-    </head>
-    <body>
-        <div class="container">
-            <div class="row header">
-                <h1>ALUNOS</h1>
-            </div>
-            <hr>
-            <div class="row row-btn-new">
-                <div class="col"></div>
-                <div class="col"></div>
-                <div class="col"></div>
-                <div class="col col-btn-new">
-                    <a [routerLink]="['/alunos/novo']" href="#" alt="novo" class="btn btn-x btn bg-success btn-new">
-                        <i class="bi bi-plus" aria-hidden="true"></i>Novo
-                    </a>
-                </div>
-            </div>
-            <div class="row">
-                <table class="table table-striped table-bordered table-hover">
-                    <thead>
-                      <tr>
-                        <th scope="col">Nome</th>
+<div class="container">
+    <div class="row title">
+        <h1>Alunos</h1>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col-2 col-btn-new">
+            <a [routerLink]="['/alunos/novo']" href="#" alt="novo" class="btn btn-x btn bg-success btn-new">
+                <i class="bi bi-plus" aria-hidden="true"></i>Novo
+            </a>
+        </div>
+    </div>
+
+    <table class="table table-striped table-bordered table-hover">            
+        <thead>                
+            <tr>
+                <th scope="col">Nome</th>
                         <th scope="col">CPF</th>
                         <th scope="col">E-mail</th>
                         <th scope="col">Data Nascimento</th>
                         <th class="col-3">Ações</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let aluno of alunos; let i = index">
-                            <td>{{aluno.nome}}</td>
-                            <td class="col-cpf">{{aluno.cpf! | mask:'000.000.000-00'}}</td>
-                            <td>{{aluno.email}}</td>
-                            <td class="col-dt-nascimento">{{aluno.dataNascimento! | mask: 'd0/M0/0000'}}</td>
-                            <td class="text-center align-middle">
-                                <a href="#" alt="Editar" class="btn btn-xs btn-info btn-edit" [routerLink]="['/alunos/editar', aluno.id]">
-                                   <i class="bi bi-pencil-square" aria-hidden="true"></i> Editar
-                                </a> 
-                                <a href="#" title="Remover" [routerLink]="['/alunos/listar']" alt="Remover" class="btn btn-xs btn-danger btn-remove" (click)="remover($event, aluno)">
-                                   <i class="bi bi-trash3" aria-hidden="true"></i> Remover
-                                </a>
-                             </td>
-                        </tr>
-                    </tbody>
-                  </table>                  
-            </div>
-          </div>
-    </body>
-
-</html>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let aluno of alunos; let i = index">
+                <td>{{aluno.nome}}</td>
+                <td class="col-cpf">{{aluno.cpf! | mask:'000.000.000-00'}}</td>
+                <td>{{aluno.email}}</td>
+                <td class="col-dt-nascimento">{{aluno.dataNascimento! | mask: 'd0/M0/0000'}}</td>
+                <td class="text-center align-middle">
+                    <a href="#" alt="Editar" class="btn btn-xs btn-info btn-edit" [routerLink]="['/alunos/editar', aluno.id]">
+                       <i class="bi bi-pencil-square" aria-hidden="true"></i> Editar
+                    </a> 
+                    <a href="#" title="Remover" [routerLink]="['/alunos/listar']" alt="Remover" class="btn btn-xs btn-danger btn-remove" (click)="remover($event, aluno)">
+                       <i class="bi bi-trash3" aria-hidden="true"></i> Remover
+                    </a>
+                 </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

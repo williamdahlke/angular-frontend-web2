@@ -18,9 +18,13 @@
 }
 
 th {
-    text-align: center;
+    text-align: center;    
 }
 
 .table-text-column{
     vertical-align: middle;
+}
+
+td {
+    text-align: center;
 }
