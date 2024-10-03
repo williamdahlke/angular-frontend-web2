@@ -27,7 +27,6 @@ export class ListarMatriculaComponent implements OnInit {
        
 
   ngOnInit(): void {
-    //localStorage.clear();
     this.matriculas = this.listarMatriculas();
     this.cursos = this.getCursos();
   }

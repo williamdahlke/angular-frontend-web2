@@ -18,7 +18,20 @@ export class ListarCursoComponent implements OnInit {
   }
 
   listarCursos() : Curso[]{
-    return this.service.listarTodos();
+    this.service.listarTodosRequest().subscribe({
+      next: (data : Curso[] | null) => {
+        if (data == null){
+          this.cursos = [];
+        } else{
+          this.cursos = data;
+        }
+      },
+      error: (err) => {
+        
+      }
+    });
+
+    return this.cursos;
   }
 
   remover($event : any, curso : Curso){

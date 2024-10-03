@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ICrudService } from '../../shared/interfaces/icrud-service';
 import { Curso } from '../../shared/models/curso.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { catchError, map, Observable, throwError } from 'rxjs';
 
 
 @Injectable({
@@ -10,22 +10,34 @@ import { Observable } from 'rxjs';
 })
 export class CursoService implements ICrudService<Curso>{
 
-  BASE_URL = "http://localhost:3000/usuarios/"
+  BASE_URL = "http://localhost:8080/cursos"
 
   httpOptions = {
+    observe: "response" as "response",    
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
   };
     
-
   constructor(private httpClient: HttpClient) { }
-  LS_CHAVE: string = "cursos";
-  
+    
   //Listar todos requisição:
-  listarTodosRequest(): Observable<Curso[]> {
-    return this.httpClient.get<Curso[]>(this.BASE_URL, this.httpOptions);
+  listarTodosRequest(): Observable<Curso[] | null> {
+    return this.httpClient.get<Curso[]>(
+      this.BASE_URL, this.httpOptions).pipe(
+        map((resp: HttpResponse<Curso[]>) => {
+          if (resp.status!= 200){
+            return [];
+          } else{
+            return resp.body;
+          }
+        }), catchError((e, c) => {
+          return throwError(() => e);
+        })
+      );
   }
+
+  LS_CHAVE = "";
 
   listarTodos(): Curso[] {
     const cursos = localStorage[this.LS_CHAVE];

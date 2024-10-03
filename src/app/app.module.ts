@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CursoModule } from './curso/curso.module';
 import { AlunoModule } from './aluno/aluno.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,8 @@ import { AlunoModule } from './aluno/aluno.module';
     BrowserModule,
     AppRoutingModule,
     CursoModule,
-    AlunoModule
+    AlunoModule,    
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
