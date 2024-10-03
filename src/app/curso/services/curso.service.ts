@@ -1,15 +1,32 @@
 import { Injectable } from '@angular/core';
 import { ICrudService } from '../../shared/interfaces/icrud-service';
 import { Curso } from '../../shared/models/curso.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CursoService implements ICrudService<Curso>{
 
-  constructor() { }
+  BASE_URL = "http://localhost:3000/usuarios/"
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
+    
+
+  constructor(private httpClient: HttpClient) { }
   LS_CHAVE: string = "cursos";
   
+  //Listar todos requisição:
+  listarTodosRequest(): Observable<Curso[]> {
+    return this.httpClient.get<Curso[]>(this.BASE_URL, this.httpOptions);
+  }
+
   listarTodos(): Curso[] {
     const cursos = localStorage[this.LS_CHAVE];
     return cursos ? JSON.parse(cursos) : [];
