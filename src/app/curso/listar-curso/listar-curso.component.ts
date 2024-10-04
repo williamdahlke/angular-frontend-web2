@@ -18,7 +18,7 @@ export class ListarCursoComponent implements OnInit {
   }
 
   listarCursos() : Curso[]{
-    this.service.listarTodosRequest().subscribe({
+    this.service.listarTodos().subscribe({
       next: (data : Curso[] | null) => {
         if (data == null){
           this.cursos = [];
@@ -37,8 +37,15 @@ export class ListarCursoComponent implements OnInit {
   remover($event : any, curso : Curso){
     $event.preventDefault();
     if (confirm(`Deseja realmente remover o curso ${curso.nome}?`)){
-      this.service.remover(curso.id!);
-      this.cursos = this.listarCursos();
+      
+      this.service.remover(curso.id!).subscribe({
+        complete: () => {
+          this.cursos = this.listarCursos();
+        },
+        error: (err) => {
+
+        }
+      });      
     }    
   }
 }

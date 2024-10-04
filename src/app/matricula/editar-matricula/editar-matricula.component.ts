@@ -41,7 +41,7 @@ export class EditarMatriculaComponent implements OnInit {
 
   atualizar(): void {
     this.matricula.Aluno = this.serviceAluno.buscarPorId(this.matricula.Aluno!.id!);
-    this.matricula.Curso = this.serviceCurso.buscarPorId(this.matricula.Curso!.id!);
+    //this.matricula.Curso = this.serviceCurso.buscarPorId(this.matricula.Curso!.id!);
     console.log(this.matricula);
     if (this.formMatricula.form.valid) {
       this.service.alterar(this.matricula);
@@ -54,6 +54,7 @@ export class EditarMatriculaComponent implements OnInit {
   }
 
   listarCursos() : Curso[]{
-    return this.serviceCurso.listarTodos();
+    return [];
+    //return this.serviceCurso.listarTodos();
   }
 }

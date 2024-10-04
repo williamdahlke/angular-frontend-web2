@@ -31,7 +31,7 @@ export class InserirMatriculaComponent {
 
   inserir() : void{
     this.matricula.Aluno = this.serviceAluno.buscarPorId(this.idAluno);
-    this.matricula.Curso = this.serviceCurso.buscarPorId(this.idCurso);
+    //this.matricula.Curso = this.serviceCurso.buscarPorId(this.idCurso);
     this.matricula.dataMatricula = this.formatarData(this.dataOriginal);
     this.matricula.nota = 0;
 
@@ -46,7 +46,8 @@ export class InserirMatriculaComponent {
   }
 
   listarCursos() : Curso[]{
-    return this.serviceCurso.listarTodos();
+    return [];
+    //return this.serviceCurso.listarTodos();
   }
 
   formatarData(data: Date): string {
