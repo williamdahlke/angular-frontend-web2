@@ -21,8 +21,14 @@ export class InserirAlunoComponent {
 
   inserir() : void{
     if (this.formAluno.form.valid){
-      this.service.inserir(this.aluno);
-      this.router.navigate(["/alunos"]);
+      this.service.inserir(this.aluno).subscribe({
+        next: (aluno) => {
+          this.router.navigate(["/alunos"]);
+        },
+        error: (err) => {
+
+        }
+      })
     }
   }
 }

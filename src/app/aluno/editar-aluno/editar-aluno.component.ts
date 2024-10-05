@@ -18,11 +18,17 @@ export class EditarAlunoComponent implements OnInit {
   
   ngOnInit(): void {
     let id = +this.route.snapshot.params['id'];
-    const res = this.service.buscarPorId(id);
-    if (res !== undefined) 
-      this.aluno = res;
-    else 
-      throw new Error('Aluno não encontrado: id = ' + id);
+
+    const res = this.service.buscarPorId(id).subscribe({
+      next: (data) => {
+        if (data != null){
+          this.aluno = data;
+        }        
+      },
+      error: (err) => {
+
+      }
+    });
   }
 
   @ViewChild('formAluno') formAluno!: NgForm;
@@ -30,8 +36,14 @@ export class EditarAlunoComponent implements OnInit {
 
   atualizar(): void {
     if (this.formAluno.form.valid) {
-      this.service.alterar(this.aluno);
-      this.router.navigate(['/alunos']);
+      this.service.alterar(this.aluno).subscribe({
+        next: (data) => {
+          this.router.navigate(['/alunos']);
+        },
+        error: (err) => {
+
+        }
+      });
     }
   }
 }

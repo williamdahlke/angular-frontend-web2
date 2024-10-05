@@ -3,12 +3,14 @@ import { ICrudService } from '../../shared/interfaces/icrud-service';
 import { Curso } from '../../shared/models/curso.model';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { catchError, map, Observable, throwError } from 'rxjs';
+import { Convert } from '../../shared/converts/convert';
 
+const convert = new Convert();
 
 @Injectable({
   providedIn: 'root'
 })
-export class CursoService{ //implements ICrudService<Curso>{
+export class CursoService implements ICrudService<Curso>{
 
   BASE_URL = "http://localhost:8080/cursos"
 
@@ -26,9 +28,13 @@ export class CursoService{ //implements ICrudService<Curso>{
       this.BASE_URL, this.httpOptions).pipe(
         map((resp: HttpResponse<Curso[]>) => {
           if (resp.status!= 200){
-            console.log(resp.body);
             return [];
           } else{
+            resp.body?.forEach((element)=> {
+              element.matriculas?.forEach((matricula) => {
+                matricula.dtMatricula = convert.dateFromRest(matricula.dtMatricula!);
+              })
+            })
             return resp.body;
           }
         }), catchError((e, c) => {

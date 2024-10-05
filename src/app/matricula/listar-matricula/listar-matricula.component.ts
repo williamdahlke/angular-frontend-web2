@@ -14,42 +14,42 @@ import { uniqBy } from 'lodash';
   styleUrl: './listar-matricula.component.css'
 })
 export class ListarMatriculaComponent implements OnInit {
-  constructor(private service : MatriculaService,
-              private serviceCursos: CursoService,
-              private serviceAlunos: AlunoService
-  ){
-  }
+  constructor(private serviceMatricula : MatriculaService,
+              private serviceCursos: CursoService){}
 
   i : number = 0;
-  matriculas : Matricula[] = [];  
   cursos : Curso [] = [];     
-  alunos : Aluno [] = [];
-       
 
   ngOnInit(): void {
-    this.matriculas = this.listarMatriculas();
-    this.cursos = this.getCursos();
-  }
+    this.serviceCursos.listarTodos().subscribe({
+      next: (data) => {
+        if (data != null){
+          this.cursos = data;
+          this.cursos = this.getCursos();          
+        }
+      },
+      error: (err) => {
 
-  listarMatriculas() : Matricula[]{
-    return this.service.listarTodos();
+      }
+    });
   }
 
   remover($event : any, matricula : Matricula){
     $event.preventDefault();
-    if (confirm(`Deseja realmente remover o aluno ${matricula.Aluno?.nome} do curso ${matricula.Curso?.nome}?`)){
-      this.service.remover(matricula.id!);
-      this.matriculas = this.listarMatriculas();
-      this.cursos = this.getCursos();
+    if (confirm(`Deseja realmente remover o aluno ${matricula.aluno?.nome} do curso ${matricula.curso?.nome}?`)){
+      this.serviceMatricula.remover(matricula.id!).subscribe({
+        complete: () => {
+          this.cursos = this.getCursos();
+        },
+        error: (err) => {
+
+        }
+      });      
     }  
   }
 
-  getCursosFiltrados(idCurso: number): Matricula[] {
-    return this.matriculas.filter(matricula => matricula.Curso?.id == idCurso!);
-  }
-
   getCursos(): Curso[] {
-    return (uniqBy(this.matriculas.map(matricula => matricula.Curso!), curso => `${curso.nome}`))
+    return this.cursos.filter(curso => curso.matriculas!.length > 0);
   }
 
   selectedCourse: number | null = null;

@@ -3,14 +3,16 @@ import { ICrudService } from '../../shared/interfaces/icrud-service';
 import { Aluno } from '../../shared/models/aluno.model';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Curso } from '../../shared/models/curso.model';
+import { Convert } from '../../shared/converts/convert';
+
+const convert = new Convert();
 
 @Injectable({
   providedIn: 'root'
 })
-export class AlunoService{ //implements ICrudService<Aluno> {
+export class AlunoService implements ICrudService<Aluno> {
 
-  BASE_URL = "http://localhost:8080/cursos"
+  BASE_URL = "http://localhost:8080/alunos"
 
   httpOptions = {
     observe: "response" as "response",    
@@ -26,9 +28,12 @@ export class AlunoService{ //implements ICrudService<Aluno> {
       this.BASE_URL, this.httpOptions).pipe(
         map((resp: HttpResponse<Aluno[]>) => {
           if (resp.status!= 200){
-            console.log(resp.body);
             return [];
           } else{
+            resp.body!.forEach(element => {
+              element.dtNascimento = convert.dateFromRest((element.dtNascimento!))
+            });
+
             return resp.body;
           }
         }), catchError((e, c) => {
@@ -44,6 +49,7 @@ export class AlunoService{ //implements ICrudService<Aluno> {
           if (resp.status!= 200){
             return null;
           } else{
+            resp.body!.dtNascimento! = convert.dateFromRest((resp.body!.dtNascimento!))                      
             return resp.body;
           }          
         }),
@@ -53,6 +59,8 @@ export class AlunoService{ //implements ICrudService<Aluno> {
   }
 
   inserir(aluno : Aluno): Observable<Aluno | null> {
+    aluno.dtNascimento = convert.dateToRest(aluno.dtNascimento!);
+
     return this.httpClient.post<Aluno>(this.BASE_URL,
       JSON.stringify(aluno), this.httpOptions).pipe(
         map((resp : HttpResponse<Aluno>) => {
@@ -68,7 +76,8 @@ export class AlunoService{ //implements ICrudService<Aluno> {
       )    
   }  
 
-  alterar(aluno: Aluno): Observable<Aluno | null> {    
+  alterar(aluno: Aluno): Observable<Aluno | null> {
+    aluno.dtNascimento = convert.dateToRest(aluno.dtNascimento!);    
     return this.httpClient.put<Aluno>(this.BASE_URL + "/" + aluno.id, JSON.stringify(aluno),
       this.httpOptions).pipe(
         map((resp : HttpResponse<Aluno>) => {
@@ -98,6 +107,4 @@ export class AlunoService{ //implements ICrudService<Aluno> {
       })
     )
   }
-  
-
 }

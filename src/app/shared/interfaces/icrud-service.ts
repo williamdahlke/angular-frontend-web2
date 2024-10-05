@@ -1,7 +1,9 @@
+import { Observable } from "rxjs";
+
 export interface ICrudService<T> {
-    listarTodos() : Array<T>;
-    inserir(object : T) : void;
-    buscarPorId(id : number) : any;
-    alterar(object : T) : void;
-    remover(id : number) : void;       
+    listarTodos() : Observable<Array<T> | null>;
+    inserir(object : T) : Observable<T | null>;
+    buscarPorId(id : number) : Observable<T | null>;
+    alterar(object : T) : Observable<T | null>;
+    remover(id : number) : Observable<T | null>;       
 }
