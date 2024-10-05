@@ -3,8 +3,6 @@ import { CursoService } from '../services/curso.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Curso } from '../../shared/models/curso.model';
 import { NgForm } from '@angular/forms';
-import { errorContext } from 'rxjs/internal/util/errorContext';
-import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-editar-curso',
@@ -14,12 +12,12 @@ import { throwError } from 'rxjs';
 export class EditarCursoComponent implements OnInit{
   constructor(private service : CursoService,
               private route : ActivatedRoute,
-              private router : Router){
-
-  }
+              private router : Router){}
 
   @ViewChild('formCurso') formCurso! : NgForm;
   curso : Curso = new Curso();
+  errorMessages : string[] = [];
+  tituloErro : string = "";
   
   ngOnInit(): void {
     let id = +this.route.snapshot.params['id'];
@@ -31,7 +29,12 @@ export class EditarCursoComponent implements OnInit{
         }
       },
       error: (err) => {
-        
+        this.tituloErro = "Erro ao buscar um curso";
+        if (err.error){
+          this.errorMessages = Object.values(err.error);
+        } else{
+          this.errorMessages = [`${err.status} ${err.message}`];
+        }     
       }
     });
   }
@@ -46,9 +49,22 @@ export class EditarCursoComponent implements OnInit{
           }
         },
         error: (err) => {
-
+          this.tituloErro = "Erro ao atualizar um curso";
+          if (err.error){
+            this.errorMessages = Object.values(err.error);
+          } else{
+            this.errorMessages = [`${err.status} ${err.message}`];
+          }     
         }        
       });
+    }
+  }
+
+  existeErros() : boolean{  
+    if (this.errorMessages.length > 0){
+      return true;
+    } else {
+      return false;
     }
   }
 }

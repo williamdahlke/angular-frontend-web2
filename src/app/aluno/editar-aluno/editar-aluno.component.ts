@@ -15,6 +15,9 @@ export class EditarAlunoComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) {}
+
+  errorMessages : string[] = [];     
+  tituloErro : string = "";    
   
   ngOnInit(): void {
     let id = +this.route.snapshot.params['id'];
@@ -26,7 +29,12 @@ export class EditarAlunoComponent implements OnInit {
         }        
       },
       error: (err) => {
-
+        this.tituloErro = "Erro ao buscar um aluno";
+        if (err.error){
+          this.errorMessages = Object.values(err.error);
+        } else{
+          this.errorMessages = [`${err.status} ${err.message}`];
+        }      
       }
     });
   }
@@ -41,9 +49,22 @@ export class EditarAlunoComponent implements OnInit {
           this.router.navigate(['/alunos']);
         },
         error: (err) => {
-
+          this.tituloErro = "Erro ao atualizar um aluno";
+          if (err.error){
+            this.errorMessages = Object.values(err.error);
+          } else{
+            this.errorMessages = [`${err.status} ${err.message}`];
+          }                
         }
       });
     }
   }
+
+  existeErros() : boolean{  
+    if (this.errorMessages.length > 0){
+      return true;
+    } else {
+      return false;
+    }
+  }     
 }

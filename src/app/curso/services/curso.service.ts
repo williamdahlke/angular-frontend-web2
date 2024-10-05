@@ -68,7 +68,7 @@ export class CursoService implements ICrudService<Curso>{
             return resp.body;
           }
         }),
-        catchError((e, c) => {
+        catchError((e, c) => {          
           return throwError(() => e);
         })
       )    
@@ -85,6 +85,7 @@ export class CursoService implements ICrudService<Curso>{
           }
         }),
         catchError((e, c) => {
+          console.log("Gerou uma exception")
           return throwError(() => e);
         })
       )

@@ -13,7 +13,9 @@ export class ListarCursoComponent implements OnInit {
   constructor(private service : CursoService,
               private modalService : NgbModal){}
 
-  cursos : Curso[] = [];      
+  cursos : Curso[] = [];   
+  errorMessages : string[] = [];     
+  tituloErro : string = "";
 
   ngOnInit(): void {
     this.cursos = this.listarCursos();
@@ -29,7 +31,12 @@ export class ListarCursoComponent implements OnInit {
         }
       },
       error: (err) => {
-        
+        this.tituloErro = "Erro ao carregar os cursos";
+        if (err.error){
+          this.errorMessages = Object.values(err.error);
+        } else{
+          this.errorMessages = [`${err.status} ${err.message}`];
+        }                  
       }
     });
 
@@ -45,7 +52,12 @@ export class ListarCursoComponent implements OnInit {
           this.cursos = this.listarCursos();
         },
         error: (err) => {
-
+          this.tituloErro = "Erro ao remover um curso";
+          if (err.error){
+            this.errorMessages = Object.values(err.error);
+          } else{
+            this.errorMessages = [`${err.status} ${err.message}`];
+          }                  
         }
       });      
     }    
@@ -55,4 +67,12 @@ export class ListarCursoComponent implements OnInit {
     const modalRef = this.modalService.open(ModalCursoComponent);
     modalRef.componentInstance.curso = curso;
   }
+
+  existeErros() : boolean{  
+    if (this.errorMessages.length > 0){
+      return true;
+    } else {
+      return false;
+    }
+  }  
 }

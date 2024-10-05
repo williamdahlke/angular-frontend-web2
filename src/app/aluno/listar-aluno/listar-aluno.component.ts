@@ -17,6 +17,8 @@ export class ListarAlunoComponent implements OnInit{
               private modalService : NgbModal){}
 
   alunos : Aluno[] = [];
+  errorMessages : string[] = [];     
+  tituloErro : string = "";  
 
   ngOnInit(): void {
     this.alunos = this.listarAlunos()!;
@@ -31,7 +33,14 @@ export class ListarAlunoComponent implements OnInit{
           this.alunos = [];
         }
     },
-    error:(error) => {}});
+    error:(err) => {
+      this.tituloErro = "Erro ao remover um aluno";
+      if (err.error){
+        this.errorMessages = Object.values(err.error);
+      } else{
+        this.errorMessages = [`${err.status} ${err.message}`];
+      }        
+    }});
 
     return this.alunos;
   }
@@ -43,8 +52,13 @@ export class ListarAlunoComponent implements OnInit{
         complete: () => {
           this.alunos = this.listarAlunos();
         },
-        error: () => {
-
+        error: (err) => {
+          this.tituloErro = "Erro ao remover um aluno";
+          if (err.error){
+            this.errorMessages = Object.values(err.error);
+          } else{
+            this.errorMessages = [`${err.status} ${err.message}`];
+          }  
         }
       });
     } 
@@ -54,4 +68,12 @@ export class ListarAlunoComponent implements OnInit{
     const modalRef = this.modalService.open(ModalAlunoComponent);
     modalRef.componentInstance.aluno = aluno;
   }  
+
+  existeErros() : boolean{  
+    if (this.errorMessages.length > 0){
+      return true;
+    } else {
+      return false;
+    }
+  }   
 }

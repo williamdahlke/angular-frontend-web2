@@ -16,6 +16,8 @@ export class InserirCursoComponent {
 
   @ViewChild('formCurso') formCurso! : NgForm;
   curso : Curso = new Curso();
+  errorMessages : string[] = [];  
+  tituloErro : string = "";
 
   inserir() : void{
     if (this.formCurso.form.valid){
@@ -24,9 +26,22 @@ export class InserirCursoComponent {
           this.router.navigate(["/cursos"]);
         },
         error: (err) => {
-
+          this.tituloErro = "Erro ao inserir um curso";
+          if (err.error){
+            this.errorMessages = Object.values(err.error);
+          } else{
+            this.errorMessages = [`${err.status} ${err.message}`];
+          }     
         }
       });
     }
   }
+
+  existeErros() : boolean{  
+    if (this.errorMessages.length > 0){
+      return true;
+    } else {
+      return false;
+    }
+  }  
 }

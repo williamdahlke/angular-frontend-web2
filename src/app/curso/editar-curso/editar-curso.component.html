@@ -11,12 +11,30 @@
             </div>
             <hr>
 
+            <div *ngIf="existeErros()">
+                <button class="btn btn btn-danger d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">Mostrar erros</button>
+                <div class="alert alert-danger d-none d-lg-block">{{tituloErro}}</div>            
+                <div class="offcanvas-lg offcanvas-end" tabindex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
+                  <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasResponsiveLabel">Erros</h5>
+                    <button type="button" class="btn btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
+                  </div>
+                  <div class="offcanvas-body">
+                    <div class="alert alert-danger" role="alert">
+                        <ul>
+                            <li *ngFor="let error of errorMessages">{{error}}</li>
+                        </ul>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
             <form #formCurso="ngForm">                                
                 <div class="row row-field">
                     <div class="form-group">
                         <label for="nome">Nome do curso *</label>
                         <input type="text" class="form-control" id="nome" name="nome"
-                        [(ngModel)]="curso.nome" #nome="ngModel" required>
+                        [(ngModel)]="curso.nome" #nome="ngModel" >
                         <div class="alert alert-danger" *ngIf="nome.errors && (nome.dirty || nome.touched)">
                             <div [hidden]="!nome.errors['required']">Digite o nome do curso</div>
                         </div>
