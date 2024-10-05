@@ -19,9 +19,11 @@ export class EditarMatriculaComponent implements OnInit {
     private serviceAluno: AlunoService,
     private serviceCurso: CursoService,
     private route: ActivatedRoute,
-    private router: Router
-  ) {}
+    private router: Router) {}
   
+  errorMessages : string[] = [];     
+  tituloErro : string = "";
+
   ngOnInit(): void {
     this.matricula.aluno = new Aluno();
     this.matricula.curso = new Curso();
@@ -35,7 +37,12 @@ export class EditarMatriculaComponent implements OnInit {
         }        
       },
       error: (err) => {
-
+        this.tituloErro = "Erro ao buscar a matrícula";
+        if (err.error){
+          this.errorMessages = Object.values(err.error);
+        } else{
+          this.errorMessages = [`${err.status} ${err.message}`];
+        } 
       }
     });
 
@@ -57,7 +64,12 @@ export class EditarMatriculaComponent implements OnInit {
         }
       },
       error: (err) => {
-
+        this.tituloErro = "Erro ao buscar o aluno da matrícula";
+        if (err.error){
+          this.errorMessages = Object.values(err.error);
+        } else{
+          this.errorMessages = [`${err.status} ${err.message}`];
+        } 
       }
     });
 
@@ -67,7 +79,12 @@ export class EditarMatriculaComponent implements OnInit {
         this.matricula.curso = data;
       }, 
       error: (err) => {
-
+        this.tituloErro = "Erro ao buscar o curso da matrícula";
+        if (err.error){
+          this.errorMessages = Object.values(err.error);
+        } else{
+          this.errorMessages = [`${err.status} ${err.message}`];
+        } 
       }
     });
 
@@ -77,7 +94,12 @@ export class EditarMatriculaComponent implements OnInit {
           this.router.navigate(['/matriculas']);
         },
         error: (err) => {
-
+          this.tituloErro = "Erro ao atualizar a matrícula";
+          if (err.error){
+            this.errorMessages = Object.values(err.error);
+          } else{
+            this.errorMessages = [`${err.status} ${err.message}`];
+          } 
         }
       })
     }
@@ -91,7 +113,12 @@ export class EditarMatriculaComponent implements OnInit {
          }
        },
        error: (err) => {
-
+        this.tituloErro = "Erro ao buscar a lista de alunos";
+        if (err.error){
+          this.errorMessages = Object.values(err.error);
+        } else{
+          this.errorMessages = [`${err.status} ${err.message}`];
+        } 
        }
      });
   }
@@ -104,8 +131,21 @@ export class EditarMatriculaComponent implements OnInit {
          }
        },
        error: (err) => {
-
+        this.tituloErro = "Erro ao buscar a lista de cursos";
+        if (err.error){
+          this.errorMessages = Object.values(err.error);
+        } else{
+          this.errorMessages = [`${err.status} ${err.message}`];
+        } 
       }
     });    
   }
+
+  existeErros() : boolean{  
+    if (this.errorMessages.length > 0){
+      return true;
+    } else {
+      return false;
+    }
+  }     
 }

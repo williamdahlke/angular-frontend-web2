@@ -21,7 +21,9 @@ export class ListarMatriculaComponent implements OnInit {
               private modalService : NgbModal){}
 
   i : number = 0;
-  cursos : Curso [] = [];     
+  cursos : Curso [] = [];
+  errorMessages : string[] = [];     
+  tituloErro : string = "";       
 
   ngOnInit(): void {
     this.serviceCursos.listarTodos().subscribe({
@@ -32,7 +34,12 @@ export class ListarMatriculaComponent implements OnInit {
         }
       },
       error: (err) => {
-
+        this.tituloErro = "Erro ao carregar as matriculas";
+        if (err.error){
+          this.errorMessages = Object.values(err.error);
+        } else{
+          this.errorMessages = [`${err.status} ${err.message}`];
+        }   
       }
     });
   }
@@ -45,7 +52,12 @@ export class ListarMatriculaComponent implements OnInit {
           this.cursos = this.getCursos();
         },
         error: (err) => {
-
+          this.tituloErro = "Erro ao remover uma matrícula";
+          if (err.error){
+            this.errorMessages = Object.values(err.error);
+          } else{
+            this.errorMessages = [`${err.status} ${err.message}`];
+          } 
         }
       });      
     }  
@@ -64,5 +76,13 @@ export class ListarMatriculaComponent implements OnInit {
   abrirModal(matricula : Matricula){
     const modalRef = this.modalService.open(ModalMatriculaComponent);
     modalRef.componentInstance.matricula = matricula;
-  }  
+  } 
+  
+  existeErros() : boolean{  
+    if (this.errorMessages.length > 0){
+      return true;
+    } else {
+      return false;
+    }
+  }   
 }

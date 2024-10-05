@@ -34,7 +34,7 @@
                     <div class="form-group">
                         <label for="nome">Nome do curso *</label>
                         <input type="text" class="form-control" id="nome" name="nome"
-                        [(ngModel)]="curso.nome" #nome="ngModel" >
+                        [(ngModel)]="curso.nome" #nome="ngModel" required>
                         <div class="alert alert-danger" *ngIf="nome.errors && (nome.dirty || nome.touched)">
                             <div [hidden]="!nome.errors['required']">Digite o nome do curso</div>
                         </div>

@@ -29,6 +29,8 @@ export class InserirMatriculaComponent implements OnInit {
   matricula : Matricula = new Matricula();
   alunos : Aluno[] = [];
   cursos : Curso[] = [];
+  errorMessages : string[] = [];     
+  tituloErro : string = "";    
 
   ngOnInit(): void {
     this.matricula.aluno = new Aluno();
@@ -38,8 +40,7 @@ export class InserirMatriculaComponent implements OnInit {
     this.listarCursos();
   }
 
-  inserir() : void{
-    
+  inserir() : void{    
     this.serviceAluno.buscarPorId(this.matricula.aluno!.id!).subscribe({
       next: (data) => {
         if (data != null){
@@ -47,7 +48,12 @@ export class InserirMatriculaComponent implements OnInit {
         }
       },
       error: (err) => {
-
+        this.tituloErro = "Erro ao buscar os dados do aluno";
+        if (err.error){
+          this.errorMessages = Object.values(err.error);
+        } else{
+          this.errorMessages = [`${err.status} ${err.message}`];
+        }   
       }
     });
 
@@ -58,7 +64,12 @@ export class InserirMatriculaComponent implements OnInit {
         }
       },
       error: (err) => {
-
+        this.tituloErro = "Erro ao buscar os dados do curso";
+        if (err.error){
+          this.errorMessages = Object.values(err.error);
+        } else{
+          this.errorMessages = [`${err.status} ${err.message}`];
+        }   
       }
     })
 
@@ -72,7 +83,12 @@ export class InserirMatriculaComponent implements OnInit {
           this.router.navigate(["/matriculas"]);
         },
         error: (err) => {
-
+          this.tituloErro = "Erro ao inserir a matrícula";
+          if (err.error){
+            this.errorMessages = Object.values(err.error);
+          } else{
+            this.errorMessages = [`${err.status} ${err.message}`];
+          }   
         }
       });      
     }
@@ -86,7 +102,12 @@ export class InserirMatriculaComponent implements OnInit {
          }
        },
        error: (err) => {
-
+        this.tituloErro = "Erro ao listar os alunos";
+        if (err.error){
+          this.errorMessages = Object.values(err.error);
+        } else{
+          this.errorMessages = [`${err.status} ${err.message}`];
+        }   
        }
      });
   }
@@ -99,7 +120,12 @@ export class InserirMatriculaComponent implements OnInit {
          }
        },
        error: (err) => {
-
+        this.tituloErro = "Erro ao listar os cursos";
+        if (err.error){
+          this.errorMessages = Object.values(err.error);
+        } else{
+          this.errorMessages = [`${err.status} ${err.message}`];
+        }   
       }
     });    
   }
@@ -112,4 +138,12 @@ export class InserirMatriculaComponent implements OnInit {
     
     return `${day}/${month}/${year}`;
   }  
+
+  existeErros() : boolean{  
+    if (this.errorMessages.length > 0){
+      return true;
+    } else {
+      return false;
+    }
+  }   
 }
