@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Curso } from '../../shared/models/curso.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Curso } from '../../shared';
 
 @Component({
   selector: 'app-modal-curso',

@@ -2,8 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { AlunoService } from '../services/aluno.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { Aluno } from '../../shared/models/aluno.model';
-
+import { Aluno } from '../../shared';
 
 @Component({
   selector: 'app-inserir-aluno',
@@ -12,9 +11,7 @@ import { Aluno } from '../../shared/models/aluno.model';
 })
 export class InserirAlunoComponent {
   constructor(private service : AlunoService,
-              private router : Router){
-
-  }
+              private router : Router){}
 
   @ViewChild('formAluno') formAluno! : NgForm;
   aluno : Aluno = new Aluno();

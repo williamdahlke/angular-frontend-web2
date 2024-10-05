@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Matricula } from '../../shared/models/matricula.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Matricula } from '../../shared';
 
 @Component({
   selector: 'app-modal-matricula',

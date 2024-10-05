@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Aluno } from '../../shared/models/aluno.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Aluno } from '../../shared';
 
 @Component({
   selector: 'app-modal-aluno',

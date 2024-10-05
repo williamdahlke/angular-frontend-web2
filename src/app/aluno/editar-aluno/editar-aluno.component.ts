@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlunoService } from '../services/aluno.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Aluno } from '../../shared/models/aluno.model';
 import { NgForm } from '@angular/forms';
+import { Aluno } from '../../shared';
 
 @Component({
   selector: 'app-editar-aluno',

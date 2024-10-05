@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CursoService } from '../services/curso.service';
-import { Curso } from '../../shared/models/curso.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalCursoComponent } from '../modal-curso/modal-curso.component';
+import { Curso } from '../../shared';
 
 @Component({
   selector: 'app-listar-curso',

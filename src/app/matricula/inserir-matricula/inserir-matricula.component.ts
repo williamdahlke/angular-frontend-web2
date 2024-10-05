@@ -1,15 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { MatriculaService } from '../services/matricula.service';
-import { Matricula } from '../../shared/models/matricula.model';
-import { Aluno } from '../../shared/models/aluno.model';
 import { AlunoService } from '../../aluno/services/aluno.service';
 import { CursoService } from '../../curso/services/curso.service';
-import { Curso } from '../../shared/models/curso.model';
-import * as moment from 'moment';
 import { Convert } from '../../shared/converts/convert';
+import { Aluno, Curso, Matricula } from '../../shared';
 
 const convert : Convert = new Convert();
 

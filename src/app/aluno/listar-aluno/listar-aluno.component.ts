@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AlunoService } from '../services/aluno.service';
-import { Aluno } from '../../shared/models/aluno.model';
-import { Observable, throwError } from 'rxjs';
 import { ModalAlunoComponent } from '../modal-aluno/modal-aluno.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Aluno } from '../../shared';
 
 
 @Component({

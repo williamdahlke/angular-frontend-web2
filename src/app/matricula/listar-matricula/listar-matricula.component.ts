@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatriculaService } from '../services/matricula.service';
-import { Matricula } from '../../shared/models/matricula.model';
-import { Curso } from '../../shared/models/curso.model';
 import { CursoService } from '../../curso/services/curso.service';
-import { Aluno } from '../../shared/models/aluno.model';
-import { AlunoService } from '../../aluno/services/aluno.service';
-import { uniqBy } from 'lodash';
 import { ModalMatriculaComponent } from '../modal-matricula/modal-matricula.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { Curso, Matricula } from '../../shared';
 
 @Component({
   selector: 'app-listar-matricula',

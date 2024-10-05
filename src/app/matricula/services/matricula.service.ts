@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Matricula } from '../../shared/models/matricula.model';
 import { ICrudService } from '../../shared/interfaces/icrud-service';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Convert } from '../../shared/converts/convert';
+import { Convert, Matricula } from '../../shared';
 
 const convert = new Convert();
 

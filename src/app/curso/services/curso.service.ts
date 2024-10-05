@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ICrudService } from '../../shared/interfaces/icrud-service';
-import { Curso } from '../../shared/models/curso.model';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { Convert } from '../../shared/converts/convert';
+import { Curso } from '../../shared';
 
 const convert = new Convert();
 

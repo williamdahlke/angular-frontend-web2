@@ -2,8 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { CursoService } from '../services/curso.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { Curso } from '../../shared/models/curso.model';
-import { catchError } from 'rxjs';
+import { Curso } from '../../shared';
 
 @Component({
   selector: 'app-inserir-curso',

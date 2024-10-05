@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CursoService } from '../services/curso.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Curso } from '../../shared/models/curso.model';
 import { NgForm } from '@angular/forms';
+import { Curso } from '../../shared';
 
 @Component({
   selector: 'app-editar-curso',

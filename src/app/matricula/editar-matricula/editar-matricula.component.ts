@@ -2,11 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatriculaService } from '../services/matricula.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { Matricula } from '../../shared/models/matricula.model';
-import { Aluno } from '../../shared/models/aluno.model';
-import { Curso } from '../../shared/models/curso.model';
 import { AlunoService } from '../../aluno/services/aluno.service';
 import { CursoService } from '../../curso/services/curso.service';
+import { Aluno, Curso, Matricula } from '../../shared';
 
 @Component({
   selector: 'app-editar-matricula',
