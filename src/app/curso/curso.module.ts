@@ -6,12 +6,14 @@ import { EditarCursoComponent } from './editar-curso/editar-curso.component';
 import { CursoService } from './services/curso.service';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ModalCursoComponent } from './modal-curso/modal-curso.component';
 
 @NgModule({
   declarations: [
     ListarCursoComponent,
     InserirCursoComponent,
-    EditarCursoComponent
+    EditarCursoComponent,
+    ModalCursoComponent
   ],
   imports: [
     CommonModule,

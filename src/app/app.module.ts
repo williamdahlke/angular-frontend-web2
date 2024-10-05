@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { CursoModule } from './curso/curso.module';
 import { AlunoModule } from './aluno/aluno.module';
 import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     CursoModule,
     AlunoModule,    
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

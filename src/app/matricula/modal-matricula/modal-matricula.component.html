@@ -1,0 +1,16 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Matricula</h4>
+    <button type="button" class="btn-close" aria-label="Close"
+    (click)="activeModal.close()"></button>
+</div>
+<div class="modal-body">
+    <p>Id: {{matricula.id}}</p>
+    <p>Curso: {{matricula.curso?.nome}}</p>
+    <p>Aluno: {{matricula.aluno?.nome}}</p>
+    <p>Data de Matrícula: {{matricula.dtMatricula}}</p>
+    <p>Nota: {{matricula.nota}}</p>    
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark"
+    (click)="activeModal.close()">Fechar</button>
+</div>

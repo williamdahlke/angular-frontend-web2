@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CursoService } from '../services/curso.service';
 import { Curso } from '../../shared/models/curso.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalCursoComponent } from '../modal-curso/modal-curso.component';
 
 @Component({
   selector: 'app-listar-curso',
@@ -8,8 +10,8 @@ import { Curso } from '../../shared/models/curso.model';
   styleUrl: './listar-curso.component.css'
 })
 export class ListarCursoComponent implements OnInit {
-  constructor(private service : CursoService){
-  }
+  constructor(private service : CursoService,
+              private modalService : NgbModal){}
 
   cursos : Curso[] = [];      
 
@@ -47,5 +49,10 @@ export class ListarCursoComponent implements OnInit {
         }
       });      
     }    
+  }
+
+  abrirModal(curso : Curso){
+    const modalRef = this.modalService.open(ModalCursoComponent);
+    modalRef.componentInstance.curso = curso;
   }
 }

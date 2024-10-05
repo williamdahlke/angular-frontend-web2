@@ -14,7 +14,11 @@
 .btn-edit, 
 .btn-remove
 {
-    margin: 3% 3% 0 3%;
+    margin: 3% 2% 0 2%;
+}
+
+.btn-ver{
+    margin: 3% 2% 0 2%;
 }
 
 th {

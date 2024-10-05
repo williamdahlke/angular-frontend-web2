@@ -6,6 +6,8 @@ import { CursoService } from '../../curso/services/curso.service';
 import { Aluno } from '../../shared/models/aluno.model';
 import { AlunoService } from '../../aluno/services/aluno.service';
 import { uniqBy } from 'lodash';
+import { ModalMatriculaComponent } from '../modal-matricula/modal-matricula.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -15,7 +17,8 @@ import { uniqBy } from 'lodash';
 })
 export class ListarMatriculaComponent implements OnInit {
   constructor(private serviceMatricula : MatriculaService,
-              private serviceCursos: CursoService){}
+              private serviceCursos: CursoService,
+              private modalService : NgbModal){}
 
   i : number = 0;
   cursos : Curso [] = [];     
@@ -57,4 +60,9 @@ export class ListarMatriculaComponent implements OnInit {
   toggleAccordion(id: number) {
     this.selectedCourse = this.selectedCourse === id ? null : id;
   }
+
+  abrirModal(matricula : Matricula){
+    const modalRef = this.modalService.open(ModalMatriculaComponent);
+    modalRef.componentInstance.matricula = matricula;
+  }  
 }

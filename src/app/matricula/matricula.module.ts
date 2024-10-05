@@ -8,12 +8,14 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';  // Importando NgSelectModule
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { ModalMatriculaComponent } from './modal-matricula/modal-matricula.component';
 
 @NgModule({
   declarations: [
     ListarMatriculaComponent,
     EditarMatriculaComponent,
-    InserirMatriculaComponent
+    InserirMatriculaComponent,
+    ModalMatriculaComponent
   ],
   imports: [
     CommonModule,

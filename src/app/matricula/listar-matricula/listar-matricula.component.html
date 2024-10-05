@@ -45,7 +45,7 @@
                             <th class="col">E-mail</th>
                             <th class="col">Nota</th>
                             <th class="col">Data matricula</th>
-                            <th class="col-3">Ações</th>
+                            <th class="col-4">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,6 +55,10 @@
                             <td class="table-text-column">{{matricula.nota}}</td>
                             <td class="table-text-column">{{matricula.dtMatricula! }}</td>
                             <td class="text-center align-middle">
+                                <button type="button" class="btn btn-xs btn-info btn-ver" (click)="abrirModal(matricula)">
+                                    <i class="fa fa-eye" aria-hidden="true"></i> Ver
+                                </button>                                
+
                                 <a href="#" alt="Editar" class="btn btn-xs btn-info btn-edit"
                                     [routerLink]="['/matriculas/editar', matricula.id]">
                                     <i class="fa fa-edit" aria-hidden="true"></i> Editar

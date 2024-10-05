@@ -30,6 +30,10 @@
                 <td>{{aluno.email}}</td>
                 <td class="col-dt-nascimento">{{aluno.dtNascimento!}}</td>
                 <td class="text-center align-middle">
+                    <button type="button" class="btn btn-xs btn-info btn-ver" (click)="abrirModal(aluno)">
+                        <i class="fa fa-eye" aria-hidden="true"></i> Ver
+                    </button>
+
                     <a href="#" alt="Editar" class="btn btn-xs btn-info btn-edit" [routerLink]="['/alunos/editar', aluno.id]">
                        <i class="bi bi-pencil-square" aria-hidden="true"></i> Editar
                     </a> 

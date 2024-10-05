@@ -7,12 +7,14 @@ import { AlunoService } from './services/aluno.service';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { ModalAlunoComponent } from './modal-aluno/modal-aluno.component';
 
 @NgModule({
   declarations: [
     ListarAlunoComponent,
     InserirAlunoComponent,
-    EditarAlunoComponent
+    EditarAlunoComponent,
+    ModalAlunoComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,14 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Curso</h4>
+    <button type="button" class="btn-close" aria-label="Close"
+    (click)="activeModal.close()"></button>
+</div>
+<div class="modal-body">
+    <p>Id: {{curso.id}}</p>
+    <p>Curso: {{curso.nome}}</p>
+    <p>Link: {{curso.link}}</p>    
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark"
+    (click)="activeModal.close()">Fechar</button>
+</div>

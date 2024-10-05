@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AlunoService } from '../services/aluno.service';
 import { Aluno } from '../../shared/models/aluno.model';
 import { Observable, throwError } from 'rxjs';
+import { ModalAlunoComponent } from '../modal-aluno/modal-aluno.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -11,8 +13,8 @@ import { Observable, throwError } from 'rxjs';
 })
 
 export class ListarAlunoComponent implements OnInit{
-  constructor(private service : AlunoService){
-  }
+  constructor(private service : AlunoService,
+              private modalService : NgbModal){}
 
   alunos : Aluno[] = [];
 
@@ -47,4 +49,9 @@ export class ListarAlunoComponent implements OnInit{
       });
     } 
   } 
+
+  abrirModal(aluno : Aluno){
+    const modalRef = this.modalService.open(ModalAlunoComponent);
+    modalRef.componentInstance.aluno = aluno;
+  }  
 }
