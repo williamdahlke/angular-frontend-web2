@@ -4,6 +4,6 @@ export class Aluno {
         public nome? : string,
         public cpf? : string,
         public email? : string,
-        public dataNascimento? : string
+        public dtNascimento? : string
     ){}
 }

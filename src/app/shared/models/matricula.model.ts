@@ -4,9 +4,9 @@ import { Curso } from "./curso.model";
 export class Matricula {
     constructor(
         public id? : number,
-        public Curso?: Curso,
-        public Aluno?: Aluno,
-        public dataMatricula?: string,
+        public curso?: Curso,
+        public aluno?: Aluno,
+        public dtMatricula?: string,
         public nota?: number
     ){}
 }

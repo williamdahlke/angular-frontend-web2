@@ -3,6 +3,8 @@ import { CursoService } from '../services/curso.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Curso } from '../../shared/models/curso.model';
 import { NgForm } from '@angular/forms';
+import { errorContext } from 'rxjs/internal/util/errorContext';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-editar-curso',
@@ -21,19 +23,32 @@ export class EditarCursoComponent implements OnInit{
   
   ngOnInit(): void {
     let id = +this.route.snapshot.params['id'];
-    const data = this.service.buscarPorId(id);
-    if (data !== undefined){
-      this.curso = data;
-    } 
-    else{
-      throw new Error("Curso não encontrado para o id: " + id);
-    }    
+
+    this.service.buscarPorId(id).subscribe({
+      next: (data : Curso | null ) => {
+        if (data != null){
+          this.curso = data;
+        }
+      },
+      error: (err) => {
+        
+      }
+    });
   }
 
-  atualizar() : void{
+  atualizar(){
     if (this.formCurso.form.valid){
-      this.service.alterar(this.curso);
-      this.router.navigate(['/cursos']);
+      
+      this.service.alterar(this.curso).subscribe({
+        next: (data) => {
+          if (data != null){
+            this.router.navigate(['/cursos']);          
+          }
+        },
+        error: (err) => {
+
+        }        
+      });
     }
   }
 }

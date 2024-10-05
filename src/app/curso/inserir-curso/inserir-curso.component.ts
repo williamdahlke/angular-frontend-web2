@@ -3,6 +3,7 @@ import { CursoService } from '../services/curso.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Curso } from '../../shared/models/curso.model';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-inserir-curso',
@@ -11,17 +12,21 @@ import { Curso } from '../../shared/models/curso.model';
 })
 export class InserirCursoComponent {
   constructor(private service : CursoService, 
-              private router : Router){
-
-  }
+              private router : Router){}
 
   @ViewChild('formCurso') formCurso! : NgForm;
   curso : Curso = new Curso();
 
   inserir() : void{
     if (this.formCurso.form.valid){
-      this.service.inserir(this.curso);
-      this.router.navigate(["/cursos"]);
+      this.service.inserir(this.curso).subscribe({
+        next: (curso) => {
+          this.router.navigate(["/cursos"]);
+        },
+        error: (err) => {
+
+        }
+      });
     }
   }
 }

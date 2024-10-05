@@ -9,7 +9,9 @@ import { AlunoService } from '../../aluno/services/aluno.service';
 import { CursoService } from '../../curso/services/curso.service';
 import { Curso } from '../../shared/models/curso.model';
 import * as moment from 'moment';
+import { Convert } from '../../shared/converts/convert';
 
+const convert : Convert = new Convert();
 
 @Component({
   selector: 'app-inserir-matricula',
@@ -28,31 +30,28 @@ export class InserirMatriculaComponent {
   idAluno : number = 0;
   idCurso : number = 0;
   dataOriginal: Date = new Date();
-
+  
   inserir() : void{
-    this.matricula.Aluno = this.serviceAluno.buscarPorId(this.idAluno);
-    this.matricula.Curso = this.serviceCurso.buscarPorId(this.idCurso);
-    this.matricula.dataMatricula = this.formatarData(this.dataOriginal);
+    //this.matricula.Aluno = this.serviceAluno.buscarPorId(this.idAluno);
+    //this.matricula.Curso = this.serviceCurso.buscarPorId(this.idCurso);
+    this.matricula.dtMatricula = convert.dateFromRest(this.dataOriginal.toString());  
     this.matricula.nota = 0;
 
     if (this.formMatricula.form.valid){
-      this.service.inserir(this.matricula);
+      //this.service.inserir(this.matricula);
       this.router.navigate(["/matriculas"]);
     }
   }
 
   listarAlunos() : Aluno[]{
-    return this.serviceAluno.listarTodos();
+    return [];
+    //return this.serviceAluno.listarTodos();
   }
 
   listarCursos() : Curso[]{
-    return this.serviceCurso.listarTodos();
+    return [];
+    //return this.serviceCurso.listarTodos();
   }
 
-  formatarData(data: Date): string {
-    const dia = String(data.getDate()).padStart(2, '0');  // Adiciona zero à esquerda
-    const mes = String(data.getMonth() + 1).padStart(2, '0');  // Meses começam em 0
-    const ano = data.getFullYear();
-    return `${dia}/${mes}/${ano}`;
-  }
+
 }

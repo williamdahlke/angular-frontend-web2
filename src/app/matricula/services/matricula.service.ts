@@ -1,47 +1,94 @@
 import { Injectable } from '@angular/core';
 import { Matricula } from '../../shared/models/matricula.model';
 import { ICrudService } from '../../shared/interfaces/icrud-service';
+import { catchError, map, Observable, throwError } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Convert } from '../../shared/converts/convert';
+
+const convert = new Convert();
 
 @Injectable({
   providedIn: 'root'
 })
 export class MatriculaService implements ICrudService<Matricula>{
 
-  constructor() { }
+  constructor(private httpClient : HttpClient) { }
 
-  LS_CHAVE: string = "matriculas";
+  BASE_URL = "http://localhost:8080/matriculas";
 
-  listarTodos(): Matricula[] {
-    const alunos = localStorage[this.LS_CHAVE];
-    return alunos ? JSON.parse(alunos) : [];
+  httpOptions = {
+    observe: "response" as "response",    
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };  
+
+  listarTodos(): Observable<Matricula[] | null> {
+    throw new Error('Method not implemented.');
   }
 
-  inserir(object: Matricula): void {
-    const matriculas = this.listarTodos();
-    object.id = new Date().getTime();
-    matriculas.push(object);
-    localStorage[this.LS_CHAVE] = JSON.stringify(matriculas);
+  buscarPorId(id: number): Observable<Matricula | null> {
+    return this.httpClient.get<Matricula>(this.BASE_URL + "/" + id, 
+      this.httpOptions).pipe(
+        map((resp : HttpResponse<Matricula>) => {
+          if (resp.status!= 200){
+            return null;
+          } else{
+            resp.body!.dtMatricula! = convert.dateFromRest((resp.body!.dtMatricula!))
+            resp.body!.aluno!.dtNascimento = convert.dateFromRest((resp.body!.aluno!.dtNascimento!))
+            return resp.body;
+          }          
+        }),
+        catchError((e, c) =>{
+          return throwError(() => e);
+        }));    
   }
 
-  buscarPorId(id: number) {
-    const matriculas = this.listarTodos();
-    return matriculas.find(matricula => matricula.id === id);    
+  inserir(object: Matricula): Observable<Matricula | null> {
+    object.dtMatricula = convert.dateToRest(object.dtMatricula!);    
+    return this.httpClient.post<Matricula>(this.BASE_URL,
+      JSON.stringify(Matricula), this.httpOptions).pipe(
+        map((resp : HttpResponse<Matricula>) => {
+          if (resp.status != 201){
+            return null;
+          } else{
+            return resp.body;
+          }
+        }),
+        catchError((e, c) => {
+          return throwError(() => e);
+        })
+      )    
   }
 
-  alterar(object: Matricula): void {
-    const matriculas = this.listarTodos();
-    matriculas.forEach((matricula, indexMatricula, MatriculaSalvos) => {
-      if (matricula.id === object.id){
-        MatriculaSalvos[indexMatricula] = object;
-      }
-    });
-
-    localStorage[this.LS_CHAVE] = JSON.stringify(matriculas);
+  alterar(object: Matricula): Observable<Matricula | null> {
+    object.dtMatricula = convert.dateToRest(object.dtMatricula!);
+    return this.httpClient.put<Matricula>(this.BASE_URL + "/" + object.id, JSON.stringify(object),
+      this.httpOptions).pipe(
+        map((resp : HttpResponse<Matricula>) => {
+          if (resp.status != 200){
+            return null;
+          } else{
+            return resp.body;
+          }
+        }),
+        catchError((e, c) => {
+          return throwError(() => e);
+        })
+      )
   }
-
-  remover(id: number): void {
-    let matriculas = this.listarTodos();
-    matriculas = matriculas.filter(matricula => matricula.id != id);
-    localStorage[this.LS_CHAVE] = JSON.stringify(matriculas);
+  remover(id: number): Observable<Matricula | null> {
+    return this.httpClient.delete<Matricula>(this.BASE_URL + "/" + id, this.httpOptions).pipe(
+      map((resp: HttpResponse<Matricula>)=> {
+        if (resp.status != 200){
+          return null;
+        } else{
+          return resp.body;
+        }
+      }),
+      catchError((e,c) => {
+        return throwError(() => e);
+      })
+    )
   }
 }

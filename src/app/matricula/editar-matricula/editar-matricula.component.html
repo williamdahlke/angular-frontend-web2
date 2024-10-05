@@ -11,7 +11,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="nome">Aluno *</label>
-                                <select [(ngModel)]="matricula.Aluno!.id" class="form-control" id="aluno" name="aluno" 
+                                <select [(ngModel)]="matricula.aluno!.id" class="form-control" id="aluno" name="aluno" 
                                 required>
                                     <option *ngFor="let aluno of listarAlunos()" [ngValue]="aluno.id">{{aluno.nome}}</option>
                                 </select>
@@ -23,7 +23,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="nome">Curso *</label>
-                                <select [(ngModel)]="matricula.Curso!.id" class="form-control" id="curso" name="curso"
+                                <select [(ngModel)]="matricula.curso!.id" class="form-control" id="curso" name="curso"
                                 #curso="ngModel" required>
                                     <option *ngFor="let curso of listarCursos()" [ngValue]="curso.id" >{{curso.nome}}</option>
                                 </select>
@@ -44,7 +44,7 @@
                                 <label for="dataInscrição">Data De Inscrição *</label>
                                 <input type="text" class="form-control" id="dataInscrição" name="dataInscrição" placeholder="Ex: 01/01/1900"
                                 inputmode="numeric" mask="d0/M0/0000"
-                                [(ngModel)]="matricula.dataMatricula" #dataMatricula="ngModel" required>
+                                [(ngModel)]="matricula.dtMatricula" #dataMatricula="ngModel" required>
                             </div>
                         </div>
                         <div class="col">
