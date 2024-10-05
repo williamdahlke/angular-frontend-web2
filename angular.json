@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "crud-web1": {
+    "crud-web2": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/crud-web1",
+            "outputPath": "dist/crud-web2",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -75,10 +75,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "crud-web1:build:production"
+              "buildTarget": "crud-web2:build:production"
             },
             "development": {
-              "buildTarget": "crud-web1:build:development"
+              "buildTarget": "crud-web2:build:development"
             }
           },
           "defaultConfiguration": "development"

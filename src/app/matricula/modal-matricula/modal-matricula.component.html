@@ -7,7 +7,7 @@
     <p>Id: {{matricula.id}}</p>
     <p>Curso: {{matricula.curso?.nome}}</p>
     <p>Aluno: {{matricula.aluno?.nome}}</p>
-    <p>Data de Matrícula: {{matricula.dtMatricula}}</p>
+    <p>Data de Matrícula: {{matricula.dtMatricula! | mask: 'd0/M0/0000' }}</p>
     <p>Nota: {{matricula.nota}}</p>    
 </div>
 <div class="modal-footer">

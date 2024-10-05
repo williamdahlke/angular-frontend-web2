@@ -8,7 +8,7 @@
     <p>Nome: {{aluno.nome}}</p>
     <p>CPF: {{aluno.cpf! | mask:'000.000.000-00'}}</p>
     <p>E-mail: {{aluno.email}}</p>
-    <p>Data de Nascimento: {{aluno.dtNascimento}}</p>    
+    <p>Data de Nascimento: {{aluno.dtNascimento! | mask: 'd0/M0/0000'}}</p>    
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark"

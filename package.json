@@ -1,5 +1,5 @@
 {
-  "name": "crud-web1",
+  "name": "crud-web2",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -24,7 +24,7 @@
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
-    "crud-web1": "file:",
+    "crud-web2": "file:",
     "g": "^2.0.1",
     "lodash.uniqby": "^4.7.0",
     "moment": "^2.30.1",
