@@ -53,11 +53,15 @@ export class ListarCursoComponent implements OnInit {
         },
         error: (err) => {
           this.tituloErro = "Erro ao remover um curso";
+          const errorMessage = err.headers.get('error-message');
           if (err.error){
             this.errorMessages = Object.values(err.error);
-          } else{
-            this.errorMessages = [`${err.status} ${err.message}`];
-          }                  
+          } else if (errorMessage){          
+              this.errorMessages = [errorMessage];            
+          }
+          else {
+            this.errorMessages = [`${err.status} ${err.message}`];            
+          }          
         }
       });      
     }    
