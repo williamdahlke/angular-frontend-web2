@@ -11,9 +11,9 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="nome">Aluno *</label>
-                                <select [(ngModel)]="idAluno" class="form-control" id="aluno" name="aluno" 
+                                <select [(ngModel)]="matricula.aluno!.id" class="form-control" id="aluno" name="aluno" 
                                 required>
-                                    <option *ngFor="let aluno of listarAlunos()" [ngValue]="aluno.id">{{aluno.nome}}</option>
+                                    <option *ngFor="let aluno of alunos" [ngValue]="aluno.id">{{aluno.nome}}</option>
                                 </select>
                                 <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                     Please choose a student.
@@ -23,9 +23,9 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="nome">Curso *</label>
-                                <select [(ngModel)]="idCurso" class="form-control" id="curso" name="curso" placeholder="----"
+                                <select [(ngModel)]="matricula.curso!.id" class="form-control" id="curso" name="curso" placeholder="----"
                                 #curso="ngModel" required>
-                                    <option *ngFor="let curso of listarCursos()" [ngValue]="curso.id">{{curso.nome}}</option>
+                                    <option *ngFor="let curso of cursos" [ngValue]="curso.id">{{curso.nome}}</option>
                                 </select>
                                 <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                     Please choose a course.

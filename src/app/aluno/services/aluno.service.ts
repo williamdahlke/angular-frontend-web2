@@ -33,7 +33,6 @@ export class AlunoService implements ICrudService<Aluno> {
             resp.body!.forEach(element => {
               element.dtNascimento = convert.dateFromRest((element.dtNascimento!))
             });
-
             return resp.body;
           }
         }), catchError((e, c) => {

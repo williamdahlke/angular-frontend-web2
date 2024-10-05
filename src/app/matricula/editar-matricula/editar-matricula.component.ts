@@ -23,39 +23,89 @@ export class EditarMatriculaComponent implements OnInit {
   ) {}
   
   ngOnInit(): void {
-    let id = +this.route.snapshot.params['id'];
-    //const res = this.service.buscarPorId(id);
-    // if (res !== undefined) 
-    //   this.matricula = res;
-    // else 
-    //   throw new Error('Matricula não encontrada: id = ' + id);
+    this.matricula.aluno = new Aluno();
+    this.matricula.curso = new Curso();
 
-      console.log(this.matricula)
+    let id = +this.route.snapshot.params['id'];
+
+    this.service.buscarPorId(id).subscribe({
+      next: (data) =>{
+        if (data != null){
+          this.matricula = data;          
+        }        
+      },
+      error: (err) => {
+
+      }
+    });
+
+    this.listarAlunos();
+    this.listarCursos();
   }
 
   @ViewChild('formMatricula') formMatricula! : NgForm;
 
-  matricula : Matricula = new Matricula();
-  idAluno : number = 0;
-  idCurso : number = 0;
+  matricula : Matricula = new Matricula();  
+  alunos : Aluno[] = [];
+  cursos : Curso[] = [];
 
   atualizar(): void {
-    //this.matricula.Aluno = this.serviceAluno.buscarPorId(this.matricula.Aluno!.id!);
-    //this.matricula.Curso = this.serviceCurso.buscarPorId(this.matricula.Curso!.id!);
-    console.log(this.matricula);
+    this.serviceAluno.buscarPorId(this.matricula.aluno!.id!).subscribe({
+      next: (data) => {
+        if (data != null){
+          this.matricula.aluno = data;
+        }
+      },
+      error: (err) => {
+
+      }
+    });
+
+    this.serviceCurso.buscarPorId(this.matricula.curso!.id!).subscribe({
+      next: (data) => {
+        if (data !)
+        this.matricula.curso = data;
+      }, 
+      error: (err) => {
+
+      }
+    });
+
     if (this.formMatricula.form.valid) {
-      //this.service.alterar(this.matricula);
-      this.router.navigate(['/matriculas']);
+      this.service.alterar(this.matricula).subscribe({
+        complete: () => {
+          this.router.navigate(['/matriculas']);
+        },
+        error: (err) => {
+
+        }
+      })
     }
   }
 
-  listarAlunos() : Aluno[]{
-    return [];
-    //return this.serviceAluno.listarTodos();
+  listarAlunos(){  
+    this.serviceAluno.listarTodos().subscribe({
+       next: (data) => {
+         if (data != null){
+           this.alunos = data;
+         }
+       },
+       error: (err) => {
+
+       }
+     });
   }
 
-  listarCursos() : Curso[]{
-    return [];
-    //return this.serviceCurso.listarTodos();
+  listarCursos(){        
+     this.serviceCurso.listarTodos().subscribe({
+       next: (data) => {
+         if (data != null){
+          this.cursos = data; 
+         }
+       },
+       error: (err) => {
+
+      }
+    });    
   }
 }

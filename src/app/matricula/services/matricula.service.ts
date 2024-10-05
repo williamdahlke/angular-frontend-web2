@@ -46,8 +46,12 @@ export class MatriculaService implements ICrudService<Matricula>{
 
   inserir(object: Matricula): Observable<Matricula | null> {
     object.dtMatricula = convert.dateToRest(object.dtMatricula!);    
+    object.aluno!.dtNascimento! = convert.dateToRest(object.aluno?.dtNascimento!)
+
+    console.log(object);
+
     return this.httpClient.post<Matricula>(this.BASE_URL,
-      JSON.stringify(Matricula), this.httpOptions).pipe(
+      JSON.stringify(object), this.httpOptions).pipe(
         map((resp : HttpResponse<Matricula>) => {
           if (resp.status != 201){
             return null;
@@ -63,6 +67,8 @@ export class MatriculaService implements ICrudService<Matricula>{
 
   alterar(object: Matricula): Observable<Matricula | null> {
     object.dtMatricula = convert.dateToRest(object.dtMatricula!);
+    object.aluno!.dtNascimento! = convert.dateToRest(object.aluno?.dtNascimento!)
+
     return this.httpClient.put<Matricula>(this.BASE_URL + "/" + object.id, JSON.stringify(object),
       this.httpOptions).pipe(
         map((resp : HttpResponse<Matricula>) => {
@@ -77,6 +83,7 @@ export class MatriculaService implements ICrudService<Matricula>{
         })
       )
   }
+
   remover(id: number): Observable<Matricula | null> {
     return this.httpClient.delete<Matricula>(this.BASE_URL + "/" + id, this.httpOptions).pipe(
       map((resp: HttpResponse<Matricula>)=> {

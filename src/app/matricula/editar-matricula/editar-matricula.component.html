@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row header">
-        <h2>Nova Matricula</h2>
+        <h2>Editar Matricula</h2>
     </div>
     <hr>
     <div class="well">
@@ -13,7 +13,7 @@
                                 <label for="nome">Aluno *</label>
                                 <select [(ngModel)]="matricula.aluno!.id" class="form-control" id="aluno" name="aluno" 
                                 required>
-                                    <option *ngFor="let aluno of listarAlunos()" [ngValue]="aluno.id">{{aluno.nome}}</option>
+                                    <option *ngFor="let aluno of alunos" [ngValue]="aluno.id">{{aluno.nome}}</option>
                                 </select>
                                 <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                     Please choose a student.
@@ -25,7 +25,7 @@
                                 <label for="nome">Curso *</label>
                                 <select [(ngModel)]="matricula.curso!.id" class="form-control" id="curso" name="curso"
                                 #curso="ngModel" required>
-                                    <option *ngFor="let curso of listarCursos()" [ngValue]="curso.id" >{{curso.nome}}</option>
+                                    <option *ngFor="let curso of cursos" [ngValue]="curso!.id" >{{curso.nome}}</option>
                                 </select>
                                 <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                     Please choose a course.
@@ -44,7 +44,7 @@
                                 <label for="dataInscrição">Data De Inscrição *</label>
                                 <input type="text" class="form-control" id="dataInscrição" name="dataInscrição" placeholder="Ex: 01/01/1900"
                                 inputmode="numeric" mask="d0/M0/0000"
-                                [(ngModel)]="matricula.dtMatricula" #dataMatricula="ngModel" required>
+                                [(ngModel)]="matricula.dtMatricula" #dtMatricula="ngModel" required>
                             </div>
                         </div>
                         <div class="col">
