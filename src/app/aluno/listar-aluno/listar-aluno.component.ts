@@ -56,8 +56,9 @@ export class ListarAlunoComponent implements OnInit{
           if (err.error){
             this.errorMessages = Object.values(err.error);
           } else{
-            this.tituloErro = "Erro ao remover um curso";
+            this.tituloErro = "Erro ao remover um aluno";
             const errorMessage = err.headers.get('error-message');
+
             if (err.error){
               this.errorMessages = Object.values(err.error);
             } else if (errorMessage){          

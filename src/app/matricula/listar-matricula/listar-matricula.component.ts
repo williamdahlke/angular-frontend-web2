@@ -21,20 +21,24 @@ export class ListarMatriculaComponent implements OnInit {
   tituloErro : string = "";       
 
   ngOnInit(): void {
+    this.getCursosFromDB();
+  }
+
+  private getCursosFromDB() {
     this.serviceCursos.listarTodos().subscribe({
       next: (data) => {
-        if (data != null){
+        if (data != null) {
           this.cursos = data;
-          this.cursos = this.getCursos();          
+          this.cursos = this.filterCursos();
         }
       },
       error: (err) => {
         this.tituloErro = "Erro ao carregar as matriculas";
-        if (err.error){
+        if (err.error) {
           this.errorMessages = Object.values(err.error);
-        } else{
+        } else {
           this.errorMessages = [`${err.status} ${err.message}`];
-        }   
+        }
       }
     });
   }
@@ -44,7 +48,7 @@ export class ListarMatriculaComponent implements OnInit {
     if (confirm(`Deseja realmente remover o aluno ${matricula.aluno?.nome} do curso ${matricula.curso?.nome}?`)){
       this.serviceMatricula.remover(matricula.id!).subscribe({
         complete: () => {
-          this.cursos = this.getCursos();
+          this.getCursosFromDB();
         },
         error: (err) => {
           this.tituloErro = "Erro ao remover uma matrícula";
@@ -58,7 +62,7 @@ export class ListarMatriculaComponent implements OnInit {
     }  
   }
 
-  getCursos(): Curso[] {
+  filterCursos(): Curso[] {
     return this.cursos.filter(curso => curso.matriculas!.length > 0);
   }
 
