@@ -52,7 +52,28 @@
                             </div>
                         </div>
                     </div>
-                    
+                </div>
+                <div class="row">
+                    <div class="col-9">
+                        <div class="row row-form-input1">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="dataInscrição">Data de Matrícula *</label>
+                                    <input type="text" class="form-control" id="dataInscrição" name="dataInscrição" placeholder="Ex: 01/01/1900"
+                                    inputmode="numeric" mask="d0/M0/0000"
+                                    [(ngModel)]="matricula.dtMatricula" #dtMatricula="ngModel" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="nota">Nota *</label>
+                                    <input type="number" class="form-control" id="nota" name="nota" placeholder="Ex: 10"
+                                    inputmode="numeric"
+                                    [(ngModel)]="matricula.nota" #nota="ngModel" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row row-form-btn">

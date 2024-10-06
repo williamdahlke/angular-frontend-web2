@@ -49,7 +49,7 @@ export class ListarCursoComponent implements OnInit {
       
       this.service.remover(curso.id!).subscribe({
         complete: () => {
-          this.cursos = this.listarCursos();
+          this.listarCursos();
         },
         error: (err) => {
           this.tituloErro = "Erro ao remover um curso";
@@ -59,11 +59,13 @@ export class ListarCursoComponent implements OnInit {
           } else if (errorMessage){          
               this.errorMessages = [errorMessage];            
           }
-          else {
+          else { 
             this.errorMessages = [`${err.status} ${err.message}`];            
           }          
         }
-      });      
+      });
+      
+      this.listarCursos();
     }    
   }
 

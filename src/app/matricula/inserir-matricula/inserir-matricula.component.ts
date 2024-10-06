@@ -69,10 +69,7 @@ export class InserirMatriculaComponent implements OnInit {
       }
     })
 
-    this.matricula.id = 0;
-    this.matricula.dtMatricula = this.getCurrentDate();  
-    this.matricula.nota = 1;
-
+    console.log(this.matricula)
     if (this.formMatricula.form.valid){
       this.service.inserir(this.matricula).subscribe({
         complete: () => {
