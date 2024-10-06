@@ -47,8 +47,6 @@ export class MatriculaService implements ICrudService<Matricula>{
     object.dtMatricula = convert.dateToRest(object.dtMatricula!);    
     object.aluno!.dtNascimento! = convert.dateToRest(object.aluno?.dtNascimento!)
 
-    console.log(object);
-
     return this.httpClient.post<Matricula>(this.BASE_URL,
       JSON.stringify(object), this.httpOptions).pipe(
         map((resp : HttpResponse<Matricula>) => {
@@ -58,7 +56,9 @@ export class MatriculaService implements ICrudService<Matricula>{
             return resp.body;
           }
         }),
-        catchError((e, c) => {
+        catchError((e, c) => {          
+          object.dtMatricula = convert.dateFromRest(object.dtMatricula!);    
+          object.aluno!.dtNascimento! = convert.dateFromRest(object.aluno?.dtNascimento!)          
           return throwError(() => e);
         })
       )    
@@ -78,6 +78,8 @@ export class MatriculaService implements ICrudService<Matricula>{
           }
         }),
         catchError((e, c) => {
+          object.dtMatricula = convert.dateFromRest(object.dtMatricula!);    
+          object.aluno!.dtNascimento! = convert.dateFromRest(object.aluno?.dtNascimento!)          
           return throwError(() => e);
         })
       )

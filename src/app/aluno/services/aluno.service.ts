@@ -70,6 +70,7 @@ export class AlunoService implements ICrudService<Aluno> {
           }
         }),
         catchError((e, c) => {
+          aluno.dtNascimento = convert.dateFromRest(aluno.dtNascimento!);
           return throwError(() => e);
         })
       )    
@@ -87,6 +88,7 @@ export class AlunoService implements ICrudService<Aluno> {
           }
         }),
         catchError((e, c) => {
+          aluno.dtNascimento = convert.dateFromRest(aluno.dtNascimento!);
           return throwError(() => e);
         })
       )
